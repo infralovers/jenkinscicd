@@ -3,7 +3,7 @@
 ## build it
 
 ```bash
-docker build -t infralover/jenkins-cicd:latest .
+docker build -t infralovers/jenkins-cicd:latest .
 ```
 
 ## Run it
@@ -14,8 +14,12 @@ docker run -d \
   -p 8888:8080 \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --name jenkins-cicd \
-  --network mynetwork \
-  infralover/jenkins-cicd:latest
+  infralovers/jenkins-cicd:latest
+```
+
+```
+docker exec -it jenkins-cicd bash
+ls -al /var/run/docker.sock
 ```
 
 ## Update Plugin list
