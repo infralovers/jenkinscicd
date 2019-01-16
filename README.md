@@ -8,7 +8,6 @@ docker build -t infralovers/jenkins-cicd:latest .
 
 ## Run it
 
-
 ```bash
 docker run -d \
   -p 8888:8080 \
@@ -17,14 +16,18 @@ docker run -d \
   infralovers/jenkins-cicd:latest
 ```
 
-```
+```bash
 docker exec -it jenkins-cicd bash
 ls -al /var/run/docker.sock
 ```
 
 ## Update Plugin list
 
+To generate a new `plugins.txt` run the following:
+
 ```bash
-JENKINS_HOST=admin:9373059862464689b4b9566932a2f3c6@localhost:9090
+USER='<your user>'
+PASSWORD='<your_password>'
+JENKINS_HOST=${USER}:${PASSWORD}@localhost:9090
 curl -sSL "http://$JENKINS_HOST/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
 ```
